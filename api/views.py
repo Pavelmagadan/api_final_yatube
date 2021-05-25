@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters, generics, viewsets
 from rest_framework.permissions import (
     IsAuthenticated, IsAuthenticatedOrReadOnly,
@@ -14,18 +15,12 @@ from .serializers import (
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    filter_backends = [filters.SearchFilter]
-    search_fields = ['text', ]
+    filter_backends = (DjangoFilterBackend,)
+    filterset_fields = ('group',)
     permission_classes = [
         IsAuthenticatedOrReadOnly,
         IsOwnerOrReadOnly
     ]
-
-    def get_queryset(self):
-        group = self.request.query_params.get('group', None)
-        if group is not None:
-            return Post.objects.filter(group=group)
-        return Post.objects.all()
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
