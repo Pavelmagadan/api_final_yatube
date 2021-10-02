@@ -34,7 +34,7 @@
 и активируйте виртуальное окружение.
 3. Установите зависимости: ```pip install -r requirements.txt```.
 4. Примените миграции: ```python manage.py migrate```.
-5. Запустите сервер ```python manage.py runserver``` и приступайте к работе с API!
+5. Запустите сервер: ```python manage.py runserver```, и приступайте к работе с API!
 
 ## Как работать с API
 Для работы с API подходят [CURL](https://losst.ru/kak-polzovatsya-curl) 
